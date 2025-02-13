@@ -5,16 +5,19 @@ import 'package:resto_spot/pages/detail/detail_page.dart';
 import 'package:resto_spot/pages/main/main_page.dart';
 import 'package:resto_spot/provider/bottom_navigation/bottom_navigation_provider.dart';
 import 'package:resto_spot/provider/detail/restaurant_detail_provider.dart';
+import 'package:resto_spot/provider/favourite/favourite_restaurant_provider.dart';
 import 'package:resto_spot/provider/home/restaurant_list_provider.dart';
 import 'package:resto_spot/provider/reviews/review_restaurant_provider.dart';
 import 'package:resto_spot/provider/search/search_restaurant_provider.dart';
 import 'package:resto_spot/routes/navigation.dart';
+import 'package:resto_spot/services/sqlite_service.dart';
 import 'package:resto_spot/style/theme/custom_theme.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      Provider(create: (context) => ApiServices()),
+      Provider(create: (_) => ApiServices()),
+      Provider(create: (_) => SqliteService()),
       ChangeNotifierProvider(
         create: (context) =>
             RestaurantListProvider(context.read<ApiServices>()),
@@ -36,7 +39,12 @@ void main() {
         create: (context) => ReviewRestaurantProvider(
           context.read<ApiServices>()
         )
-      )
+      ),
+      ChangeNotifierProvider(
+        create: (context) => FavouriteRestaurantProvider(
+          context.read<SqliteService>()
+        )
+      ),
     ],
     child: const MainApp(),
   ));

@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:resto_spot/data/model/customer_review.dart';
 
-RestaurantDetail restaurantDetailFromJson(String str) => RestaurantDetail.fromJson(json.decode(str));
-
 class RestaurantDetail {
     String id;
     String name;
@@ -41,6 +39,19 @@ class RestaurantDetail {
         rating: json["rating"]?.toDouble(),
         customerReviews: List<CustomerReview>.from(json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
     );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "city": city,
+        "address": address,
+        "pictureId": pictureId,
+        "categories": jsonEncode(List<dynamic>.from(categories.map((x) => x.toJson()))),
+        "menus": jsonEncode(menus.toJson()),
+        "rating": rating,
+        "customerReviews": jsonEncode(List<dynamic>.from(customerReviews.map((x) => x.toJson()))),
+    };
 }
 
 class Category {
@@ -53,6 +64,10 @@ class Category {
     factory Category.fromJson(Map<String, dynamic> json) => Category(
         name: json["name"],
     );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+    };
 }
 
 class Menus {
@@ -68,4 +83,9 @@ class Menus {
         foods: List<Category>.from(json["foods"].map((x) => Category.fromJson(x))),
         drinks: List<Category>.from(json["drinks"].map((x) => Category.fromJson(x))),
     );
+
+    Map<String, dynamic> toJson() => {
+        "foods": List<dynamic>.from(foods.map((x) => x.toJson())),
+        "drinks": List<dynamic>.from(drinks.map((x) => x.toJson())),
+    };
 }
