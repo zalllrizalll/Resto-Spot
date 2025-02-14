@@ -4,6 +4,7 @@ enum CustomColors {
   blue('Blue', Colors.blue),
   white('White', Colors.white),
   grey('Grey', Colors.white54),
+  black('Black', Colors.black),
   red('Red', Colors.red);
 
   const CustomColors(this.name, this.color);

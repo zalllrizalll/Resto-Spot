@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resto_spot/data/model/restaurant_detail.dart';
+import 'package:resto_spot/style/colors/custom_colors.dart';
 
 class MenusFoodCard extends StatelessWidget {
   final RestaurantDetail restaurant;
@@ -17,7 +18,7 @@ class MenusFoodCard extends StatelessWidget {
             final food = restaurant.menus.foods[index];
 
             return Card(
-              color: const Color.fromARGB(255, 149, 216, 255),
+              color: CustomColors.blue.color,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
               child: Padding(

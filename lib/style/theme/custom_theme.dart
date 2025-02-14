@@ -33,22 +33,41 @@ class CustomTheme {
         )));
   }
 
+  static BottomNavigationBarThemeData get _lightBottomNavTheme {
+    return BottomNavigationBarThemeData(
+      backgroundColor: CustomColors.blue.color,
+      selectedItemColor: CustomColors.white.color,
+      unselectedItemColor: CustomColors.grey.color,
+      type: BottomNavigationBarType.fixed,
+    );
+  }
+
+  static BottomNavigationBarThemeData get _darkBottomNavTheme {
+    return BottomNavigationBarThemeData(
+      backgroundColor: CustomColors.black.color,
+      selectedItemColor: CustomColors.blue.color,
+      unselectedItemColor: CustomColors.grey.color,
+      type: BottomNavigationBarType.fixed,
+    );
+  }
+
   static ThemeData get lightTheme {
     return ThemeData(
         brightness: Brightness.light,
         appBarTheme: _appBarTheme,
         textTheme: _textTheme,
         useMaterial3: true,
-        colorSchemeSeed: CustomColors.blue.color);
+        colorSchemeSeed: CustomColors.blue.color,
+        bottomNavigationBarTheme: _lightBottomNavTheme);
   }
 
   static ThemeData get darkTheme {
     return ThemeData(
-      brightness: Brightness.dark,
-      appBarTheme: _appBarTheme,
-      textTheme: _textTheme,
-      useMaterial3: true,
-      colorSchemeSeed: CustomColors.blue.color,
-    );
+        brightness: Brightness.dark,
+        appBarTheme: _appBarTheme,
+        textTheme: _textTheme,
+        useMaterial3: true,
+        colorSchemeSeed: CustomColors.blue.color,
+        bottomNavigationBarTheme: _darkBottomNavTheme);
   }
 }

@@ -13,6 +13,7 @@ dependencies:
   http:
   google_fonts:
   sqflite:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

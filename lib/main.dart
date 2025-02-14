@@ -9,64 +9,86 @@ import 'package:resto_spot/provider/favourite/favourite_restaurant_provider.dart
 import 'package:resto_spot/provider/home/restaurant_list_provider.dart';
 import 'package:resto_spot/provider/reviews/review_restaurant_provider.dart';
 import 'package:resto_spot/provider/search/search_restaurant_provider.dart';
+import 'package:resto_spot/provider/setting/setting_provider.dart';
 import 'package:resto_spot/routes/navigation.dart';
+import 'package:resto_spot/services/setting_service.dart';
 import 'package:resto_spot/services/sqlite_service.dart';
 import 'package:resto_spot/style/theme/custom_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+
   runApp(MultiProvider(
     providers: [
       Provider(create: (_) => ApiServices()),
       Provider(create: (_) => SqliteService()),
+      Provider(create: (_) => SettingService(prefs)),
+      ChangeNotifierProvider(
+        create: (_) => BottomNavigationProvider(),
+      ),
       ChangeNotifierProvider(
         create: (context) =>
             RestaurantListProvider(context.read<ApiServices>()),
       ),
       ChangeNotifierProvider(
-        create: (context) => RestaurantDetailProvider(
-          context.read<ApiServices>()
-        )
+          create: (context) =>
+              RestaurantDetailProvider(context.read<ApiServices>())),
+      ChangeNotifierProvider(
+        create: (context) =>
+            SearchRestaurantProvider(context.read<ApiServices>()),
       ),
       ChangeNotifierProvider(
-        create: (context) => BottomNavigationProvider(),
-      ),
+          create: (context) =>
+              ReviewRestaurantProvider(context.read<ApiServices>())),
       ChangeNotifierProvider(
-        create: (context) => SearchRestaurantProvider(
-          context.read<ApiServices>()
-        ),
-      ),
+          create: (context) =>
+              FavouriteRestaurantProvider(context.read<SqliteService>())),
       ChangeNotifierProvider(
-        create: (context) => ReviewRestaurantProvider(
-          context.read<ApiServices>()
-        )
-      ),
-      ChangeNotifierProvider(
-        create: (context) => FavouriteRestaurantProvider(
-          context.read<SqliteService>()
-        )
-      ),
+          create: (context) => SettingProvider(context.read<SettingService>())),
     ],
     child: const MainApp(),
   ));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<SettingProvider>().getSettingTheme();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Resto Spot",
-      debugShowCheckedModeBanner: false,
-      theme: CustomTheme.lightTheme,
-      darkTheme: CustomTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      initialRoute: Navigation.homepage.name,
-      routes: {
-        Navigation.homepage.name: (context) => const MainPage(),
-        Navigation.detailpage.name: (context) => DetailPage(
-          idRestaurant: ModalRoute.of(context)?.settings.arguments as String,
-        )
+    return Consumer<SettingProvider>(
+      builder: (_, provider, child) {
+        bool isDarkTheme = provider.setting?.isDarkTheme ?? false;
+
+        return MaterialApp(
+          title: "Resto Spot",
+          debugShowCheckedModeBanner: false,
+          theme: CustomTheme.lightTheme,
+          darkTheme: CustomTheme.darkTheme,
+          themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+          initialRoute: Navigation.homepage.name,
+          routes: {
+            Navigation.homepage.name: (context) => const MainPage(),
+            Navigation.detailpage.name: (context) => DetailPage(
+                  idRestaurant:
+                      ModalRoute.of(context)?.settings.arguments as String,
+                )
+          },
+        );
       },
     );
   }
