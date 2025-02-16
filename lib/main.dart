@@ -7,10 +7,12 @@ import 'package:resto_spot/provider/bottom_navigation/bottom_navigation_provider
 import 'package:resto_spot/provider/detail/restaurant_detail_provider.dart';
 import 'package:resto_spot/provider/favourite/favourite_restaurant_provider.dart';
 import 'package:resto_spot/provider/home/restaurant_list_provider.dart';
+import 'package:resto_spot/provider/notification/notification_provider.dart';
 import 'package:resto_spot/provider/reviews/review_restaurant_provider.dart';
 import 'package:resto_spot/provider/search/search_restaurant_provider.dart';
-import 'package:resto_spot/provider/setting/setting_provider.dart';
+import 'package:resto_spot/provider/setting/theme_provider.dart';
 import 'package:resto_spot/routes/navigation.dart';
+import 'package:resto_spot/services/notification_service.dart';
 import 'package:resto_spot/services/setting_service.dart';
 import 'package:resto_spot/services/sqlite_service.dart';
 import 'package:resto_spot/style/theme/custom_theme.dart';
@@ -25,6 +27,11 @@ void main() async {
       Provider(create: (_) => ApiServices()),
       Provider(create: (_) => SqliteService()),
       Provider(create: (_) => SettingService(prefs)),
+      Provider(
+        create: (context) => NotificationService()
+          ..init()
+          ..configureLocalTimeZone(),
+      ),
       ChangeNotifierProvider(
         create: (_) => BottomNavigationProvider(),
       ),
@@ -46,7 +53,11 @@ void main() async {
           create: (context) =>
               FavouriteRestaurantProvider(context.read<SqliteService>())),
       ChangeNotifierProvider(
-          create: (context) => SettingProvider(context.read<SettingService>())),
+          create: (context) => ThemeProvider(context.read<SettingService>())),
+      ChangeNotifierProvider(
+          create: (context) => NotificationProvider(
+              context.read<NotificationService>(),
+              context.read<SettingService>()))
     ],
     child: const MainApp(),
   ));
@@ -64,13 +75,14 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<SettingProvider>().getSettingTheme();
+      context.read<ThemeProvider>().getSettingTheme();
+      context.read<NotificationProvider>().getSettingNotification();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SettingProvider>(
+    return Consumer<ThemeProvider>(
       builder: (_, provider, child) {
         bool isDarkTheme = provider.setting?.isDarkTheme ?? false;
 

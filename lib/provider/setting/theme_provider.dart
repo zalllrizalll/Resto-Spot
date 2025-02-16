@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:resto_spot/data/model/setting.dart';
+import 'package:resto_spot/data/model/theme_mode_setting.dart';
 import 'package:resto_spot/services/setting_service.dart';
 
-class SettingProvider extends ChangeNotifier {
+class ThemeProvider extends ChangeNotifier {
   final SettingService _service;
 
-  SettingProvider(this._service);
+  ThemeProvider(this._service);
 
   String _message = '';
   String get message => _message;
 
-  Setting? _setting;
-  Setting? get setting => _setting;
+  ThemeModeSetting? _setting;
+  ThemeModeSetting? get setting => _setting;
 
-  Future<void> saveSettingTheme(Setting setting) async {
+  Future<void> saveSettingTheme(ThemeModeSetting setting) async {
     try {
       await _service.saveSettingTheme(setting);
       _message = 'Success to save setting theme';

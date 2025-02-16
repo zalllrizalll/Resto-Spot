@@ -14,6 +14,9 @@ dependencies:
   google_fonts:
   sqflite:
   shared_preferences:
+  flutter_local_notifications:
+  flutter_timezone:
+  timezone:
 
 dev_dependencies:
   flutter_test:

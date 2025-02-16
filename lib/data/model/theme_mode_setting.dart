@@ -1,7 +1,7 @@
-class Setting {
+class ThemeModeSetting {
   final bool isDarkTheme;
 
-  Setting({
+  ThemeModeSetting({
     required this.isDarkTheme
   });
 }
