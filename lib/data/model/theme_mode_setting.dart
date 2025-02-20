@@ -1,7 +1,5 @@
 class ThemeModeSetting {
   final bool isDarkTheme;
 
-  ThemeModeSetting({
-    required this.isDarkTheme
-  });
+  ThemeModeSetting({required this.isDarkTheme});
 }

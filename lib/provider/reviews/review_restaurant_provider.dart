@@ -11,14 +11,15 @@ class ReviewRestaurantProvider extends ChangeNotifier {
 
   ReviewRestaurantResultState get resultState => _resultState;
 
-  Future<void> addReviewRestaurant(String idRestaurant, String name, String review) async {
+  Future<void> addReviewRestaurant(
+      String idRestaurant, String name, String review) async {
     try {
       _resultState = ReviewRestaurantLoadingState();
       notifyListeners();
 
       final result = await _apiServices.addReview(idRestaurant, name, review);
 
-      if(result.error) {
+      if (result.error) {
         _resultState = ReviewRestaurantErrorState(result.message);
         notifyListeners();
       } else {

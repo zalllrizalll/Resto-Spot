@@ -33,7 +33,7 @@ class TextFieldAddReview extends StatelessWidget {
           TextField(
             controller: nameController,
             decoration: InputDecoration(
-                hintText: 'Nama',
+                hintText: 'Name',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 )),
@@ -43,7 +43,7 @@ class TextFieldAddReview extends StatelessWidget {
             maxLines: 5,
             controller: reviewController,
             decoration: InputDecoration(
-                hintText: 'Review',
+                hintText: 'Description',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 )),

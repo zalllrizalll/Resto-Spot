@@ -34,6 +34,23 @@ class RestaurantCardWidget extends StatelessWidget {
                     child: Image.network(
                       '${BaseUrl.urlServer}/images/small/${restaurant.pictureId}',
                       fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.broken_image,
+                                size: 30, color: Colors.grey),
+                            const SizedBox.square(dimension: 8),
+                            const Text(
+                              'Failed to load image',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),

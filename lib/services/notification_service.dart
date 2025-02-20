@@ -125,8 +125,8 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Daily scheduled notification title',
-      'This is a body of daily scheduled notification',
+      'Time for Lunch! 🍽️',
+      'Don\'t forget to take a break and enjoy your meal.',
       dateTimeSchedule,
       notificationDetails,
       uiLocalNotificationDateInterpretation:

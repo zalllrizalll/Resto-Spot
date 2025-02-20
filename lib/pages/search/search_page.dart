@@ -80,18 +80,22 @@ class _SearchPageState extends State<SearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.error_outline,
+                          Icons.wifi_off_outlined,
                           color: Colors.red,
                           size: 50,
                         ),
-                        SizedBox.square(dimension: 4),
+                        SizedBox.square(dimension: 16),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
-                            message,
+                            message.contains('Failed host lookup') ||
+                                    message.contains('SocketException')
+                                ? 'No Internet Connection'
+                                : message,
                             style: TextStyle(
                               color: Colors.red,
-                              fontSize: 12,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
                           ),

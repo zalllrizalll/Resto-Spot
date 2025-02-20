@@ -43,17 +43,10 @@ class ApiServices {
 
   Future<ReviewRestaurantResponse> addReview(
       String idRestaurant, String name, String review) async {
-    final response =
-        await http.post(Uri.parse(
-          '${BaseUrl.urlServer}/review'), 
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(
-            {
-              "id": idRestaurant,
-              "name": name,
-              "review": review
-            }
-          ),
+    final response = await http.post(
+      Uri.parse('${BaseUrl.urlServer}/review'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({"id": idRestaurant, "name": name, "review": review}),
     );
 
     if (response.statusCode == 201) {

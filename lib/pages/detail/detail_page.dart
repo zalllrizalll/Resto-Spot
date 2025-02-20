@@ -60,45 +60,48 @@ class _DetailPageState extends State<DetailPage> {
                 RestaurantDetailSuccessState(data: var restaurant) =>
                   BodyOfDetailPage(restaurant: restaurant),
                 RestaurantDetailErrorState(error: var message) => Center(
-                    child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 50,
-                ),
-                SizedBox.square(dimension: 4),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    message,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox.square(dimension: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<RestaurantDetailProvider>()
-                        .fetchDetailRestaurant(widget.idRestaurant);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                  ),
-                  child: const Text(
-                    'Retry',
-                  ),
-                )
-              ],
-            )
-                  ),
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.wifi_off_outlined,
+                        color: Colors.red,
+                        size: 50,
+                      ),
+                      SizedBox.square(dimension: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          message.contains('Failed host lookup') ||
+                                  message.contains('SocketException')
+                              ? 'No Internet Connection'
+                              : message,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox.square(dimension: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          context
+                              .read<RestaurantDetailProvider>()
+                              .fetchDetailRestaurant(widget.idRestaurant);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Retry',
+                        ),
+                      )
+                    ],
+                  )),
                 _ => Center(
                     child: Text(
                       'No Results Found',
