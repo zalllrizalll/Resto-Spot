@@ -25,7 +25,7 @@ void main() {
     test('should return a list of restaurant when API call is successful',
         () async {
       final mockResponse = RestaurantListResponse(
-          error: false, message: "Success", count: 20, restaurants: []);
+          error: false, message: "success", count: 20, restaurants: []);
 
       when(() => mockApiServices.getListRestaurants())
           .thenAnswer((_) async => mockResponse);
