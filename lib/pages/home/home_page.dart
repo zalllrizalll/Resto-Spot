@@ -40,11 +40,13 @@ class _HomePageState extends State<HomePage> {
             ),
           RestaurantListSuccessState(data: var restaurantList) =>
             ListView.builder(
+                key: const ValueKey('listCardHome'),
                 itemCount: restaurantList.length,
                 itemBuilder: (context, index) {
                   final restaurant = restaurantList[index];
 
                   return RestaurantCardWidget(
+                    key: ValueKey('restaurantCardHome'),
                     onTap: () {
                       Navigator.pushNamed(context, Navigation.detailpage.name,
                           arguments: restaurant.id);

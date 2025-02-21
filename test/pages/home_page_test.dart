@@ -64,13 +64,14 @@ void main() {
     });
 
     testWidgets('should display error message and retry button when in error state', (tester) async {
-      const errorMessage = 'Failed to load data';
+      const errorMessage = 'Failed to load restaurant data';
       when(() => mockRestaurantListProvider.resultState)
           .thenReturn(RestaurantListErrorState(errorMessage));
 
       await tester.pumpWidget(widget);
+      await tester.pump();
 
-      final errorIconFinder = find.byIcon(Icons.error_outline);
+      final errorIconFinder = find.byIcon(Icons.wifi_off_outlined);
       expect(errorIconFinder, findsOneWidget);
 
       final errorTextFinder = find.text(errorMessage);
