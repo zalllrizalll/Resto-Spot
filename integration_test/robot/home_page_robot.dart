@@ -9,6 +9,7 @@ import 'package:resto_spot/provider/favourite/favourite_icon_provider.dart';
 import 'package:resto_spot/provider/favourite/favourite_restaurant_provider.dart';
 import 'package:resto_spot/provider/home/restaurant_list_provider.dart';
 import 'package:resto_spot/provider/notification/notification_provider.dart';
+import 'package:resto_spot/provider/reviews/review_restaurant_provider.dart';
 import 'package:resto_spot/provider/setting/theme_provider.dart';
 import 'package:resto_spot/routes/navigation.dart';
 import 'package:resto_spot/services/notification_service.dart';
@@ -54,7 +55,12 @@ class HomePageRobot {
         ChangeNotifierProvider(
             create: (context) => NotificationProvider(
                 context.read<NotificationService>(),
-                context.read<SettingService>()))
+                context.read<SettingService>())),
+        ChangeNotifierProvider(
+          create: (context) => ReviewRestaurantProvider(
+            context.read<ApiServices>()
+          )
+        )
       ],
       child: MaterialApp(
         home: widget,
@@ -70,10 +76,17 @@ class HomePageRobot {
     await tester.pumpAndSettle();
   }
 
-  Future<void> scrollListView() async {
+  Future<void> scrollUpListView() async {
     final listViewFinder = find.byKey(listCardHome);
 
-    expect(listViewFinder, findsOneWidget);
+    await tester.fling(listViewFinder, const Offset(0, 300), 1000);
+
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> scrollDownListView() async {
+    final listViewFinder = find.byKey(listCardHome);
+
     await tester.fling(listViewFinder, const Offset(0, -300), 1000);
 
     await tester.pumpAndSettle();
@@ -82,9 +95,7 @@ class HomePageRobot {
   Future<void> tapRestaurantCard() async {
     final restaurantFinder = find.byKey(restaurantCardKey);
 
-    expect(restaurantFinder, findsWidgets);
-
-    await tester.tap(restaurantFinder.last);
+    await tester.tap(restaurantFinder.first);
     await tester.pumpAndSettle();
   }
 }

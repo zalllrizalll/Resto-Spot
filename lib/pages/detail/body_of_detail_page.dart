@@ -67,7 +67,9 @@ class _BodyOfDetailPageState extends State<BodyOfDetailPage> {
                             RestaurantDetailSuccessState(
                               data: var restaurant
                             ) =>
-                              FavouriteIconWidget(restaurant: restaurant),
+                              FavouriteIconWidget(
+                                key: const ValueKey('favouriteIcon'),
+                                restaurant: restaurant),
                             _ => const SizedBox()
                           };
                         })))
@@ -137,14 +139,18 @@ class _BodyOfDetailPageState extends State<BodyOfDetailPage> {
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox.square(dimension: 4),
-                  MenusFoodCard(restaurant: widget.restaurant),
+                  MenusFoodCard(
+                    key: const ValueKey('menusFoodCard'),
+                    restaurant: widget.restaurant),
                   const SizedBox.square(dimension: 16),
                   Text(
                     'Drinks',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox.square(dimension: 4),
-                  MenusDrinksCard(restaurant: widget.restaurant)
+                  MenusDrinksCard(
+                    key: const ValueKey('menusDrinksCard'),
+                    restaurant: widget.restaurant)
                 ],
               ),
             ),

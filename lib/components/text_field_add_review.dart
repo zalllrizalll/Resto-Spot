@@ -31,6 +31,7 @@ class TextFieldAddReview extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
+            key: const ValueKey('nameReview'),
             controller: nameController,
             decoration: InputDecoration(
                 hintText: 'Name',
@@ -40,6 +41,7 @@ class TextFieldAddReview extends StatelessWidget {
           ),
           const SizedBox.square(dimension: 4),
           TextField(
+            key: const ValueKey('descReview'),
             maxLines: 5,
             controller: reviewController,
             decoration: InputDecoration(
@@ -52,6 +54,7 @@ class TextFieldAddReview extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          key: const ValueKey('buttonBatal'),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -64,6 +67,7 @@ class TextFieldAddReview extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: const ValueKey('buttonSimpan'),
           onPressed: submitReview,
           child: Text(
             'Simpan',

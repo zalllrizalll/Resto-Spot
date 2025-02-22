@@ -142,6 +142,7 @@ class _ReviewPageState extends State<ReviewPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
+          key: const ValueKey('buttonAddReview'),
             style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColors.blue.color,
                 padding: EdgeInsets.symmetric(vertical: 10),

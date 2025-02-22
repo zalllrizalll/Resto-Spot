@@ -43,9 +43,11 @@ class _DetailPageState extends State<DetailPage> {
                 indicatorColor: CustomColors.white.color,
                 tabs: [
                   Tab(
+                    key: const ValueKey('tabOverview'),
                     text: 'Overview',
                   ),
                   Tab(
+                    key: const ValueKey('tabReviews'),
                     text: 'Reviews',
                   ),
                 ]),
@@ -58,7 +60,9 @@ class _DetailPageState extends State<DetailPage> {
                     child: CircularProgressIndicator(),
                   ),
                 RestaurantDetailSuccessState(data: var restaurant) =>
-                  BodyOfDetailPage(restaurant: restaurant),
+                  BodyOfDetailPage(
+                    key: const ValueKey('bodyOfDetailPage'),
+                    restaurant: restaurant),
                 RestaurantDetailErrorState(error: var message) => Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +114,9 @@ class _DetailPageState extends State<DetailPage> {
                   ),
               };
             }),
-            ReviewPage(idRestaurant: widget.idRestaurant)
+            ReviewPage(
+              key: const ValueKey('reviewPage'),
+              idRestaurant: widget.idRestaurant)
           ])),
     );
   }
