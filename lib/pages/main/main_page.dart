@@ -20,21 +20,25 @@ class MainPage extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(
+              key: ValueKey('homePage'),
               icon: Icon(Icons.home),
               label: 'Home',
               tooltip: 'Home',
             ),
             BottomNavigationBarItem(
+              key: ValueKey('searchPage'),
               icon: Icon(Icons.search),
               label: 'Search',
               tooltip: 'Search',
             ),
             BottomNavigationBarItem(
+              key: ValueKey('favouritePage'),
               icon: Icon(Icons.favorite_rounded),
               label: 'Favourite',
               tooltip: 'Favourite',
             ),
             BottomNavigationBarItem(
+              key: ValueKey('settingPage'),
               icon: Icon(Icons.settings),
               label: 'Setting',
               tooltip: 'Setting',

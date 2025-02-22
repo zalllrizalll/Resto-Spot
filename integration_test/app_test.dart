@@ -56,5 +56,13 @@ void main() {
     await detailPageRobot.tapOverview();
 
     await detailPageRobot.backHomePage();
+
+    await homePageRobot.moveToSearchPage();
+
+    await homePageRobot.moveToFavouritePage();
+
+    await homePageRobot.moveToSettingPage();
+
+    await homePageRobot.moveToHomePage();
   });
 }

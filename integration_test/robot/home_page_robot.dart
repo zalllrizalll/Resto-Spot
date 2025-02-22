@@ -10,6 +10,7 @@ import 'package:resto_spot/provider/favourite/favourite_restaurant_provider.dart
 import 'package:resto_spot/provider/home/restaurant_list_provider.dart';
 import 'package:resto_spot/provider/notification/notification_provider.dart';
 import 'package:resto_spot/provider/reviews/review_restaurant_provider.dart';
+import 'package:resto_spot/provider/search/search_restaurant_provider.dart';
 import 'package:resto_spot/provider/setting/theme_provider.dart';
 import 'package:resto_spot/routes/navigation.dart';
 import 'package:resto_spot/services/notification_service.dart';
@@ -24,6 +25,11 @@ class HomePageRobot {
 
   final listCardHome = const ValueKey('listCardHome');
   final restaurantCardKey = const ValueKey('restaurantCardHome');
+
+  final homePage = const ValueKey('homePage');
+  final searchPage = const ValueKey('searchPage');
+  final favouritePage = const ValueKey('favouritePage');
+  final settingPage = const ValueKey('settingPage');
 
   Future<void> loadUI(Widget widget) async {
     Future.delayed(Duration.zero);
@@ -57,10 +63,11 @@ class HomePageRobot {
                 context.read<NotificationService>(),
                 context.read<SettingService>())),
         ChangeNotifierProvider(
-          create: (context) => ReviewRestaurantProvider(
-            context.read<ApiServices>()
-          )
-        )
+            create: (context) =>
+                ReviewRestaurantProvider(context.read<ApiServices>())),
+        ChangeNotifierProvider(
+            create: (context) =>
+                SearchRestaurantProvider(context.read<ApiServices>()))
       ],
       child: MaterialApp(
         home: widget,
@@ -96,6 +103,26 @@ class HomePageRobot {
     final restaurantFinder = find.byKey(restaurantCardKey);
 
     await tester.tap(restaurantFinder.first);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> moveToHomePage() async {
+    await tester.tap(find.byKey(homePage));
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> moveToSearchPage() async {
+    await tester.tap(find.byKey(searchPage));
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> moveToFavouritePage() async {
+    await tester.tap(find.byKey(favouritePage));
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> moveToSettingPage() async {
+    await tester.tap(find.byKey(settingPage));
     await tester.pumpAndSettle();
   }
 }
