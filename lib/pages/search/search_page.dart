@@ -67,6 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                               final restaurant = restaurantList[index];
 
                               return RestaurantCardWidget(
+                                key: const ValueKey('restaurantCardSearch'),
                                   restaurant: restaurant,
                                   onTap: () {
                                     Navigator.pushNamed(

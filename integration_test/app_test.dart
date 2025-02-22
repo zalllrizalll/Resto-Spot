@@ -4,6 +4,7 @@ import 'package:resto_spot/main.dart';
 import 'robot/detail_page_robot.dart';
 import 'robot/home_page_robot.dart';
 import 'robot/review_page_robot.dart';
+import 'robot/search_page_robot.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,7 @@ void main() {
     final homePageRobot = HomePageRobot(tester);
     final detailPageRobot = DetailPageRobot(tester);
     final reviewPageRobot = ReviewPageRobot(tester);
+    final searchPageRobot = SearchPageRobot(tester);
 
     await homePageRobot.loadUI(const MainApp());
 
@@ -58,6 +60,44 @@ void main() {
     await detailPageRobot.backHomePage();
 
     await homePageRobot.moveToSearchPage();
+
+    await searchPageRobot.searchResto();
+
+    await searchPageRobot.tapRestaurantCardSearch();
+
+     await detailPageRobot.scrollDownDetailPage();
+
+    await detailPageRobot.scrollLeftMenusFoodCard();
+
+    await detailPageRobot.scrollRightMenusFoodCard();
+
+    await detailPageRobot.scrollLeftMenusDrinksCard();
+
+    await detailPageRobot.scrollRightMenusDrinksCard();
+
+    await detailPageRobot.scrollUpDetailPage();
+
+    await detailPageRobot.tapFavourite();
+
+    await detailPageRobot.tapReviews();
+
+    await reviewPageRobot.addReview();
+
+    await reviewPageRobot.editNameReview();
+
+    await reviewPageRobot.editDescReview();
+
+    await reviewPageRobot.tapButtonBatal();
+
+    await reviewPageRobot.addReview();
+
+    await reviewPageRobot.editNameReview();
+
+    await reviewPageRobot.editDescReview();
+
+    await reviewPageRobot.tapButtonSimpan();
+
+    await detailPageRobot.backHomePage();
 
     await homePageRobot.moveToFavouritePage();
 

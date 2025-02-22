@@ -11,6 +11,7 @@ class SearchWidget extends StatelessWidget {
     TextEditingController searchController = TextEditingController(text: query);
 
     return TextField(
+      key: const ValueKey('searchRestaurant'),
       controller: searchController,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),

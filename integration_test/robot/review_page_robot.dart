@@ -21,7 +21,13 @@ class ReviewPageRobot {
     await tester.tap(find.byKey(textNameReview));
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byKey(textNameReview), 'Yasmine');
+    const nameReview = 'Yasmine';
+
+    for (int i = 0; i < nameReview.length; i++) {
+      await tester.enterText(find.byKey(textNameReview), nameReview.substring(0, i + 1));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
   }
@@ -30,7 +36,13 @@ class ReviewPageRobot {
     await tester.tap(find.byKey(textDescReview));
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byKey(textDescReview), 'Mantap!');
+    const descReview = 'Mantap!';
+
+    for (int i = 0; i < descReview.length; i++) {
+      await tester.enterText(find.byKey(textDescReview), descReview.substring(0, i + 1));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
   }
