@@ -54,5 +54,7 @@ void main() {
     await reviewPageRobot.tapButtonSimpan();
 
     await detailPageRobot.tapOverview();
+
+    await detailPageRobot.backHomePage();
   });
 }

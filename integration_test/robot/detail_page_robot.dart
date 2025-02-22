@@ -66,4 +66,9 @@ class DetailPageRobot {
     await tester.fling(find.byKey(reviewsPage), const Offset(0, -300), 1000);
     await tester.pumpAndSettle();
   }
+
+  Future<void> backHomePage() async {
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+  }
 }

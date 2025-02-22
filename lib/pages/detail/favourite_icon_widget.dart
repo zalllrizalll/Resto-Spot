@@ -24,6 +24,7 @@ class _FavouriteIconWidgetState extends State<FavouriteIconWidget> {
     Future.microtask(() async {
       await favouriteRestaurantProvider
           .fetchFavouriteRestaurantById(widget.restaurant.id);
+      if (!mounted) return;
       final value = favouriteRestaurantProvider.restaurant == null
           ? false
           : favouriteRestaurantProvider.restaurant!.id == widget.restaurant.id;
