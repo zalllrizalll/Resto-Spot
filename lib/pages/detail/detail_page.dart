@@ -61,8 +61,8 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 RestaurantDetailSuccessState(data: var restaurant) =>
                   BodyOfDetailPage(
-                    key: const ValueKey('bodyOfDetailPage'),
-                    restaurant: restaurant),
+                      key: const ValueKey('bodyOfDetailPage'),
+                      restaurant: restaurant),
                 RestaurantDetailErrorState(error: var message) => Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -115,8 +115,8 @@ class _DetailPageState extends State<DetailPage> {
               };
             }),
             ReviewPage(
-              key: const ValueKey('reviewPage'),
-              idRestaurant: widget.idRestaurant)
+                key: const ValueKey('reviewPage'),
+                idRestaurant: widget.idRestaurant)
           ])),
     );
   }

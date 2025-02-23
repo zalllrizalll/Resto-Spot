@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:resto_spot/data/model/notification_setting.dart';
-import 'package:resto_spot/services/notification_service.dart';
 import 'package:resto_spot/services/setting_service.dart';
+import 'package:resto_spot/services/workmanager_service.dart';
 
 class NotificationProvider extends ChangeNotifier {
-  final NotificationService _service;
+  final WorkmanagerService _workmanagerService;
   final SettingService _settingService;
 
-  NotificationProvider(this._service, this._settingService);
+  NotificationProvider(this._workmanagerService, this._settingService);
 
-  int _notificationId = 0;
   bool? _permission = false;
   bool? get permission => _permission;
 
@@ -20,17 +19,28 @@ class NotificationProvider extends ChangeNotifier {
   NotificationSetting? get settingNotification => _settingNotification;
 
   Future<void> requestPermissions() async {
-    _permission = await _service.requestPermissions();
+    _permission = await _workmanagerService.requestPermissions();
     notifyListeners();
   }
 
-  void scheduleDailyElevenAMNotification() {
-    _notificationId += 1;
-    _service.scheduleDailyElevenAMNotification(id: _notificationId);
+  Future<void> scheduleDailyReminder() async {
+    try {
+      await _workmanagerService.runDailyReminderTask();
+      _message = 'Daily reminder scheduled successfully';
+    } catch (e) {
+      _message = 'Failed to schedule daily reminder';
+    }
+    notifyListeners();
   }
 
-  Future<void> cancelNotification(int id) async {
-    await _service.cancelNotification(id);
+  Future<void> cancelDailyReminder() async {
+    try {
+      await _workmanagerService.cancelAllTask();
+      _message = 'Daily reminder canceled successfully';
+    } catch (e) {
+      _message = 'Failed to cancel daily reminder';
+    }
+    notifyListeners();
   }
 
   Future<void> saveSettingNotification(NotificationSetting setting) async {

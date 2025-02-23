@@ -65,7 +65,7 @@ class _SettingPageState extends State<SettingPage> {
                         ),
                       ),
                       Switch(
-                        key: const ValueKey('switchTheme'),
+                          key: const ValueKey('switchTheme'),
                           value: isDarkTheme,
                           onChanged: (value) async {
                             await themeProvider.saveSettingTheme(
@@ -100,15 +100,14 @@ class _SettingPageState extends State<SettingPage> {
                         ],
                       )),
                       Switch(
-                        key: const ValueKey('switchNotification'),
+                          key: const ValueKey('switchNotification'),
                           value: isNotificationEnabled,
                           onChanged: (value) async {
                             if (value) {
                               await notificationProvider.requestPermissions();
-                              notificationProvider
-                                  .scheduleDailyElevenAMNotification();
+                              notificationProvider.scheduleDailyReminder();
                             } else {
-                              await notificationProvider.cancelNotification(1);
+                              await notificationProvider.cancelDailyReminder();
                             }
                             await notificationProvider.saveSettingNotification(
                                 NotificationSetting(

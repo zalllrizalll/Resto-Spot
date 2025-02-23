@@ -15,6 +15,7 @@ import 'package:resto_spot/routes/navigation.dart';
 import 'package:resto_spot/services/notification_service.dart';
 import 'package:resto_spot/services/setting_service.dart';
 import 'package:resto_spot/services/sqlite_service.dart';
+import 'package:resto_spot/services/workmanager_service.dart';
 import 'package:resto_spot/style/theme/custom_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +33,7 @@ void main() async {
           ..init()
           ..configureLocalTimeZone(),
       ),
+      Provider(create: (_) => WorkmanagerService()..init()),
       ChangeNotifierProvider(
         create: (_) => BottomNavigationProvider(),
       ),
@@ -56,7 +58,7 @@ void main() async {
           create: (context) => ThemeProvider(context.read<SettingService>())),
       ChangeNotifierProvider(
           create: (context) => NotificationProvider(
-              context.read<NotificationService>(),
+              context.read<WorkmanagerService>(),
               context.read<SettingService>()))
     ],
     child: const MainApp(),

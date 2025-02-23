@@ -105,8 +105,10 @@ class NotificationService {
 
   Future<void> scheduleDailyElevenAMNotification({
     required int id,
-    String channelId = '1',
-    String channelName = 'Schedule Notification',
+    required String channelId,
+    required String channelName,
+    required String title,
+    required String body,
   }) async {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
@@ -125,8 +127,8 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Time for Lunch! 🍽️',
-      'Don\'t forget to take a break and enjoy your meal.',
+      title,
+      body,
       dateTimeSchedule,
       notificationDetails,
       uiLocalNotificationDateInterpretation:
