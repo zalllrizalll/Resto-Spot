@@ -65,6 +65,7 @@ class _SettingPageState extends State<SettingPage> {
                         ),
                       ),
                       Switch(
+                        key: const ValueKey('switchTheme'),
                           value: isDarkTheme,
                           onChanged: (value) async {
                             await themeProvider.saveSettingTheme(
@@ -99,6 +100,7 @@ class _SettingPageState extends State<SettingPage> {
                         ],
                       )),
                       Switch(
+                        key: const ValueKey('switchNotification'),
                           value: isNotificationEnabled,
                           onChanged: (value) async {
                             if (value) {

@@ -21,7 +21,7 @@ class ReviewPageRobot {
     await tester.tap(find.byKey(textNameReview));
     await tester.pumpAndSettle();
 
-    const nameReview = 'Yasmine';
+    const nameReview = 'Rizal';
 
     for (int i = 0; i < nameReview.length; i++) {
       await tester.enterText(find.byKey(textNameReview), nameReview.substring(0, i + 1));

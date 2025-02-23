@@ -47,6 +47,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 final favouriteResto = favouriteRestoList[index];
 
                 return RestaurantCardWidget(
+                  key: const ValueKey('restaurantCardFavourite'),
                     restaurant: favouriteResto.toRestaurant(),
                     onTap: () {
                       Navigator.pushNamed(context, Navigation.detailpage.name,
