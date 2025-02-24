@@ -153,9 +153,8 @@ class _MainAppState extends State<MainApp> {
           routes: {
             Navigation.homepage.name: (context) => const MainPage(),
             Navigation.detailpage.name: (context) => DetailPage(
-                  idRestaurant:
-                      ModalRoute.of(context)?.settings.arguments as String? ??
-                          '',
+                  idRestaurant: widget.initialPayload ??
+                      ModalRoute.of(context)?.settings.arguments as String,
                 )
           },
         );
