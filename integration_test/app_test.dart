@@ -129,8 +129,6 @@ void main() {
 
     await settingPageRobot.tapSwitchTheme();
 
-    await settingPageRobot.tapSwitchNotification();
-
     await homePageRobot.moveToHomePage();
   });
 }

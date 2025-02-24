@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:resto_spot/data/model/received_notification.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -10,6 +11,9 @@ final StreamController<String?> selectNotificationStream =
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+
+final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
+    StreamController<ReceivedNotification>.broadcast();
 
 class NotificationService {
   Future<void> init() async {
@@ -48,7 +52,7 @@ class NotificationService {
   tz.TZDateTime _nextInstanceOfElevenAM() {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 11);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 15, 15);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -109,6 +113,7 @@ class NotificationService {
     required String channelName,
     required String title,
     required String body,
+    required String payload,
   }) async {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
@@ -131,6 +136,7 @@ class NotificationService {
       body,
       dateTimeSchedule,
       notificationDetails,
+      payload: payload,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.wallClockTime,
       matchDateTimeComponents: DateTimeComponents.time,

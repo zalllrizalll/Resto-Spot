@@ -8,6 +8,9 @@ import 'package:workmanager/workmanager.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
 @pragma('vm:entry-point')
 void callbackDispatcher() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +23,6 @@ void callbackDispatcher() async {
     tz.setLocalLocation(tz.getLocation('UTC'));
   }
 
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   const initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
   const initializationSettingsIOS = DarwinInitializationSettings();
@@ -29,7 +31,9 @@ void callbackDispatcher() async {
     iOS: initializationSettingsIOS,
   );
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+  );
 
   Workmanager().executeTask((task, inputData) async {
     if (task == MyWorkmanager.periodic.taskName) {
@@ -39,13 +43,13 @@ void callbackDispatcher() async {
         if (result.restaurants.isNotEmpty) {
           final randomRestaurant = (result.restaurants..shuffle()).first;
           await NotificationService().scheduleDailyElevenAMNotification(
-            id: 1,
-            channelId: '1',
-            channelName: 'Daily Restaurant Reminder',
-            title: '🍽️ Let’s grab lunch at ${randomRestaurant.name}!',
-            body:
-                'Explore the flavors of ${randomRestaurant.city} — you won’t regret it! 🌟',
-          );
+              id: 1,
+              channelId: '1',
+              channelName: 'Daily Restaurant Reminder',
+              title: '🍽️ Let’s grab lunch at ${randomRestaurant.name}!',
+              body:
+                  'Explore the flavors of ${randomRestaurant.city} — you won’t regret it! 🌟',
+              payload: randomRestaurant.id);
         }
       } catch (e) {
         throw Exception(e);

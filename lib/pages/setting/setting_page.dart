@@ -100,7 +100,6 @@ class _SettingPageState extends State<SettingPage> {
                         ],
                       )),
                       Switch(
-                          key: const ValueKey('switchNotification'),
                           value: isNotificationEnabled,
                           onChanged: (value) async {
                             if (value) {

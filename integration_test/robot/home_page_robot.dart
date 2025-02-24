@@ -16,6 +16,7 @@ import 'package:resto_spot/routes/navigation.dart';
 import 'package:resto_spot/services/notification_service.dart';
 import 'package:resto_spot/services/setting_service.dart';
 import 'package:resto_spot/services/sqlite_service.dart';
+import 'package:resto_spot/services/workmanager_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageRobot {
@@ -40,6 +41,7 @@ class HomePageRobot {
         Provider(create: (_) => ApiServices()),
         Provider(create: (_) => SqliteService()),
         Provider(create: (_) => SettingService(prefs)),
+        Provider(create: (_) => WorkmanagerService()..init()),
         Provider(
           create: (context) => NotificationService()
             ..init()
@@ -60,7 +62,7 @@ class HomePageRobot {
             create: (context) => ThemeProvider(context.read<SettingService>())),
         ChangeNotifierProvider(
             create: (context) => NotificationProvider(
-                context.read<NotificationService>(),
+                context.read<WorkmanagerService>(),
                 context.read<SettingService>())),
         ChangeNotifierProvider(
             create: (context) =>
