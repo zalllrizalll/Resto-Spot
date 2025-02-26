@@ -4,6 +4,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:resto_spot/data/api/api_services.dart';
 import 'package:resto_spot/services/notification_service.dart';
 import 'package:resto_spot/static/my_workmanager.dart';
+import 'package:resto_spot/utils/helper/datetime_helper.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -74,10 +75,14 @@ class WorkmanagerService {
   }
 
   Future<void> runDailyReminderTask() async {
+    final now = tz.TZDateTime.now(tz.local);
+    final nextElevenAM = DatetimeHelper().nextInstanceOfElevenAM();
+    final initialDelay = nextElevenAM.difference(now);
+
     await _workmanager.registerPeriodicTask(
         MyWorkmanager.periodic.uniqueName, MyWorkmanager.periodic.taskName,
         frequency: const Duration(hours: 24),
-        initialDelay: Duration.zero,
+        initialDelay: initialDelay,
         inputData: {'message': 'Daily reminder task is running'});
   }
 
