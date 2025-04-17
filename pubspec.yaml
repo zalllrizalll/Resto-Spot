@@ -9,28 +9,42 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider:
-  path_provider:
-  http:
-  google_fonts:
-  sqflite:
-  shared_preferences:
-  flutter_local_notifications:
-  flutter_timezone:
-  timezone:
+  flutter_local_notifications: null
+  flutter_timezone: null
+  google_fonts: null
+  http: null
+  path_provider: null
+  provider: null
+  shared_preferences: null
+  sqflite: null
+  timezone: null
   workmanager:
     git:
       url: https://github.com/fluttercommunity/flutter_workmanager.git
-      ref: b783000
+      path: workmanager
+      ref: main
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.14.3"
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  test:
-  mocktail:
+  mocktail: null
+  test: null
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/resto_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon/resto_icon.png"
+  adaptive_icon_foreground_inset: 25
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/icon/
